@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.pj.renttracker.ControllerFactory;
 import com.pj.renttracker.Parameter;
+import com.pj.renttracker.model.Unit;
 import com.pj.renttracker.model.Tenant;
 
 import javafx.fxml.FXMLLoader;
@@ -95,6 +96,21 @@ public class StageController {
 		paramMap.put("tenant", tenant);
 		
 		loadSceneFromFXML("tenant", paramMap);
+	}
+
+	public void showUnitListScreen() {
+		loadSceneFromFXML("unitList");
+	}
+
+	public void showAddUnitScreen() {
+		loadSceneFromFXML("unit");
+	}
+
+	public void showUpdateUnitScreen(Unit unit) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("unit", unit);
+		
+		loadSceneFromFXML("unit", paramMap);
 	}
 
 }
