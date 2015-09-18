@@ -1,0 +1,13 @@
+.root{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Helvetica";
+    -fx-font-weight: bold;
+}
+
+.center {
+	-fx-alignment: center;
+}
+
+.right {
+	-fx-alignment: center-right;
+}
