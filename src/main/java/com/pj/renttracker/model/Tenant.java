@@ -53,6 +53,9 @@ public class Tenant {
 				.isEquals();
 	}
 
-	
+	@Override
+	public String toString() {
+		return name;
+	}
 	
 }

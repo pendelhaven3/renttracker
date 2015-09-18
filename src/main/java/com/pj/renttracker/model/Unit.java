@@ -53,4 +53,9 @@ public class Unit {
 				.isEquals();
 	}
 	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 }

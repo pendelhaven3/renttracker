@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.pj.renttracker.ControllerFactory;
 import com.pj.renttracker.Parameter;
 import com.pj.renttracker.model.Unit;
+import com.pj.renttracker.model.Contract;
 import com.pj.renttracker.model.Tenant;
 
 import javafx.fxml.FXMLLoader;
@@ -111,6 +112,21 @@ public class StageController {
 		paramMap.put("unit", unit);
 		
 		loadSceneFromFXML("unit", paramMap);
+	}
+
+	public void showContractListScreen() {
+		loadSceneFromFXML("contractList");
+	}
+
+	public void showAddContractScreen() {
+		loadSceneFromFXML("contract");
+	}
+
+	public void showUpdateContractScreen(Contract contract) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("contract", contract);
+		
+		loadSceneFromFXML("contract", paramMap);
 	}
 
 }
