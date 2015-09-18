@@ -119,10 +119,17 @@ public class StageController {
 	}
 
 	public void showAddContractScreen() {
-		loadSceneFromFXML("contract");
+		loadSceneFromFXML("addEditContract");
 	}
 
 	public void showUpdateContractScreen(Contract contract) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("contract", contract);
+		
+		loadSceneFromFXML("addEditContract", paramMap);
+	}
+
+	public void showContractScreen(Contract contract) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("contract", contract);
 		

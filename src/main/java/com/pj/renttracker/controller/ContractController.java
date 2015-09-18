@@ -1,31 +1,28 @@
 package com.pj.renttracker.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 
 import com.pj.renttracker.Parameter;
-import com.pj.renttracker.gui.component.AppDatePicker;
+import com.pj.renttracker.dialog.ContractPaymentDialog;
+import com.pj.renttracker.gui.component.DoubleClickEventHandler;
 import com.pj.renttracker.gui.component.ShowDialog;
+import com.pj.renttracker.gui.table.ContractPaymentsTableView;
 import com.pj.renttracker.model.Contract;
-import com.pj.renttracker.model.Tenant;
-import com.pj.renttracker.model.Unit;
 import com.pj.renttracker.service.ContractService;
-import com.pj.renttracker.service.TenantService;
-import com.pj.renttracker.service.UnitService;
-import com.pj.renttracker.util.DateUtil;
 import com.pj.renttracker.util.FormatterUtil;
-import com.pj.renttracker.util.NumberUtil;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -33,35 +30,41 @@ public class ContractController extends AbstractController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ContractController.class);
 	
-	@Autowired private TenantService tenantService;
-	@Autowired private UnitService unitService;
 	@Autowired private ContractService contractService;
+	@Autowired private ContractPaymentDialog contractPaymentDialog;
 	
-	@FXML private ComboBox<Tenant> tenantComboBox;
-	@FXML private ComboBox<Unit> unitComboBox;
-	@FXML private TextField amountField;
-	@FXML private AppDatePicker startDatePicker;
+	@FXML private Label tenantLabel;
+	@FXML private Label unitLabel;
+	@FXML private Label amountLabel;
+	@FXML private Label startDateLabel;
+	@FXML private ContractPaymentsTableView paymentsTable;
 	@FXML private Button deleteButton;
 	
 	@Parameter private Contract contract;
 	
 	@Override
 	public void updateDisplay() {
-		tenantComboBox.setItems(FXCollections.observableList(tenantService.getAllTenants()));
-		unitComboBox.setItems(FXCollections.observableList(unitService.getAllUnits()));
+		stageController.setTitle("Contract");
+		contract = contractService.getContract(contract.getId());
+		tenantLabel.setText(contract.getTenant().toString());
+		unitLabel.setText(contract.getUnit().toString());
+		amountLabel.setText(FormatterUtil.formatAmount(contract.getRentalAmount()));
+		startDateLabel.setText(FormatterUtil.formatDate(contract.getStartDate()));
+		deleteButton.setDisable(false);
 		
-		if (contract != null) {
-			stageController.setTitle("Update Contract");
-			contract = contractService.getContract(contract.getId());
-			tenantComboBox.setValue(contract.getTenant());
-			unitComboBox.setValue(contract.getUnit());
-			amountField.setText(FormatterUtil.formatAmount(contract.getRentalAmount()));
-			startDatePicker.setValue(DateUtil.toLocalDate(contract.getStartDate()));
-			deleteButton.setDisable(false);
-		} else {
-			stageController.setTitle("Add New Contract");
-		}
-		tenantComboBox.requestFocus();
+		paymentsTable.getItems().clear(); // workaround since setItems() does not refresh
+		paymentsTable.getItems().addAll(contract.getPayments());
+		
+		paymentsTable.setOnMouseClicked(new DoubleClickEventHandler() {
+			
+			@Override
+			protected void onDoubleClick(MouseEvent event) {
+				if (!paymentsTable.getSelectionModel().isEmpty()) {
+					updateContractPayment();
+				}
+			}
+		});
+		
 	}
 
 	@FXML public void doOnBack() {
@@ -73,65 +76,52 @@ public class ContractController extends AbstractController {
 		// TODO: Implement this
 	}
 
-	@FXML public void saveContract() {
-		if (!validateFields()) {
+	@FXML public void updateContract() {
+		stageController.showUpdateContractScreen(contract);
+	}
+
+	@FXML public void addContractPayment() {
+		Map<String, Object> model = new HashMap<>();
+		model.put("contract", contract);
+		
+		contractPaymentDialog.showAndWait(model);
+		
+		updateDisplay();
+	}
+
+	@FXML public void deleteContractPayment() {
+		if (!isPaymentSelected()) {
+			ShowDialog.error("No payment selected");
 			return;
 		}
 		
-		if (contract == null) {
-			contract = new Contract();
+		if (!ShowDialog.confirm("Delete payment?")) {
+			return;
 		}
-		contract.setTenant(tenantComboBox.getValue());
-		contract.setUnit(unitComboBox.getValue());
-		contract.setRentalAmount(NumberUtil.toBigDecimal(amountField.getText()));
-		contract.setStartDate(DateUtil.toDate(startDatePicker.getValue()));
 		
 		try {
-			contractService.save(contract);
+			contractService.delete(paymentsTable.getSelectionModel().getSelectedItem());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			ShowDialog.unexpectedError();
 			return;
 		}
 		
-		ShowDialog.info("Contract saved");
-		stageController.showContractListScreen();
+		ShowDialog.info("Payment deleted");
+		updateDisplay();
+	}
+	
+	private boolean isPaymentSelected() {
+		return !paymentsTable.getSelectionModel().isEmpty();
 	}
 
-	private boolean validateFields() {
-		if (tenantComboBox.getValue() == null) {
-			ShowDialog.error("Tenant must be specified");
-			tenantComboBox.requestFocus();
-			return false;
-		}
-
-		if (unitComboBox.getValue() == null) {
-			ShowDialog.error("Unit must be specified");
-			unitComboBox.requestFocus();
-			return false;
-		}
+	public void updateContractPayment() {
+		Map<String, Object> model = new HashMap<>();
+		model.put("payment", paymentsTable.getSelectionModel().getSelectedItem());
 		
-		if (StringUtils.isEmpty(amountField.getText())) { 
-			ShowDialog.error("Amount must be specified");
-			amountField.requestFocus();
-			return false;
-		}
+		contractPaymentDialog.showAndWait(model);
 		
-		if (!NumberUtil.isAmount(amountField.getText())) { 
-			ShowDialog.error("Amount must be a valid amount");
-			amountField.requestFocus();
-			return false;
-		}
-
-		if (startDatePicker.getValue() == null) {
-			ShowDialog.error("Start Date must be specified");
-			startDatePicker.requestFocus();
-			return false;
-		}
-		
-		// TODO: Check if unit is available
-		
-		return true;
+		updateDisplay();
 	}
-
+	
 }

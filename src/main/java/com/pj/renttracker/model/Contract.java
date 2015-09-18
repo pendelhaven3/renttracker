@@ -2,11 +2,15 @@ package com.pj.renttracker.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 
 @Entity
 public class Contract {
@@ -23,6 +27,10 @@ public class Contract {
 	
 	private Date startDate;
 	private BigDecimal rentalAmount;
+	
+	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+	@OrderBy("paymentDate DESC")
+	private List<ContractPayment> payments;
 
 	public Long getId() {
 		return id;
@@ -62,6 +70,14 @@ public class Contract {
 
 	public void setRentalAmount(BigDecimal rentalAmount) {
 		this.rentalAmount = rentalAmount;
+	}
+
+	public List<ContractPayment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<ContractPayment> payments) {
+		this.payments = payments;
 	}
 
 }

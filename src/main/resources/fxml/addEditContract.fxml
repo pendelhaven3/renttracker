@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.GridPane?>
+<?import com.pj.renttracker.gui.component.AppDatePicker?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+		fx:controller="com.pj.renttracker.controller.AddEditContractController" >
+	<top>
+		<ToolBar>
+			<Button text="Back" onAction="#doOnBack" />
+			<Button fx:id="deleteButton" text="Delete" onAction="#deleteContract" visible="false" />
+		</ToolBar>
+	</top>
+	<center>
+		<VBox alignment="center" spacing="10">
+			<GridPane vgap="10" alignment="center">
+				<Label text="Tenant" prefWidth="100" 
+					GridPane.columnIndex="0" GridPane.rowIndex="0" />
+				<ComboBox fx:id="tenantComboBox" prefWidth="300"
+					GridPane.columnIndex="1" GridPane.rowIndex="0" />
+				<Label text="Unit" prefWidth="100" 
+					GridPane.columnIndex="0" GridPane.rowIndex="1" />
+				<ComboBox fx:id="unitComboBox" prefWidth="300"
+					GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<Label text="Amount"
+					GridPane.columnIndex="0" GridPane.rowIndex="2" />
+				<TextField fx:id="amountField"
+					GridPane.columnIndex="1" GridPane.rowIndex="2" />
+				<Label text="Start Date"
+					GridPane.columnIndex="0" GridPane.rowIndex="3" />
+				<AppDatePicker fx:id="startDatePicker"
+					GridPane.columnIndex="1" GridPane.rowIndex="3" />
+			</GridPane>
+		
+			<Button text="Save" onAction="#saveContract" />
+		</VBox>
+	</center>
+</BorderPane>

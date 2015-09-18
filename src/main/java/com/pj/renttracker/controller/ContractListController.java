@@ -32,7 +32,7 @@ public class ContractListController extends AbstractController {
 			@Override
 			protected void onDoubleClick(MouseEvent event) {
 				if (!contractsTable.getSelectionModel().isEmpty()) {
-					stageController.showUpdateContractScreen(
+					stageController.showContractScreen(
 							contractsTable.getSelectionModel().getSelectedItem());
 				}
 			}

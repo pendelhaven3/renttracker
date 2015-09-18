@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import com.pj.renttracker.gui.component.UppercaseTextField?>
+<?import com.pj.renttracker.gui.component.AppDatePicker?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" >
+	<center>
+		<VBox alignment="center" spacing="10">
+			<GridPane vgap="10" alignment="center">
+				<Label text="Payment Date:" prefWidth="150" 
+					GridPane.columnIndex="0" GridPane.rowIndex="0" />
+				<AppDatePicker fx:id="paymentDatePicker" prefWidth="200"
+					GridPane.columnIndex="1" GridPane.rowIndex="0" />
+				<Label text="Amount:"
+					GridPane.columnIndex="0" GridPane.rowIndex="1" />
+				<TextField fx:id="amountField" prefWidth="200"
+					GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<Label text="Remarks:"
+					GridPane.columnIndex="0" GridPane.rowIndex="2" />
+				<UppercaseTextField fx:id="remarksField" prefWidth="200"
+					GridPane.columnIndex="1" GridPane.rowIndex="2" />
+			</GridPane>
+		
+			<HBox spacing="10" alignment="center">
+				<Button text="Save" onAction="#saveContractPayment" />
+				<Button text="Cancel" onAction="#cancel" />
+			</HBox>
+		</VBox>
+	</center>
+</BorderPane>
