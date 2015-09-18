@@ -2,6 +2,7 @@ package com.pj.renttracker.controller;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.pj.renttracker.ControllerFactory;
 import com.pj.renttracker.Parameter;
+import com.pj.renttracker.model.Tenant;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -78,6 +80,21 @@ public class StageController {
 
 	public void showMainMenuScreen() {
 		loadSceneFromFXML("mainMenu");
+	}
+
+	public void showTenantListScreen() {
+		loadSceneFromFXML("tenantList");
+	}
+
+	public void showAddTenantScreen() {
+		loadSceneFromFXML("tenant");
+	}
+
+	public void showUpdateTenantScreen(Tenant tenant) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("tenant", tenant);
+		
+		loadSceneFromFXML("tenant", paramMap);
 	}
 
 }
