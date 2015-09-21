@@ -27,6 +27,7 @@ public class Contract {
 	
 	private Date startDate;
 	private BigDecimal rentalAmount;
+	private Integer dueDate;
 	
 	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
 	@OrderBy("paymentDate DESC")
@@ -78,6 +79,14 @@ public class Contract {
 
 	public void setPayments(List<ContractPayment> payments) {
 		this.payments = payments;
+	}
+
+	public Integer getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(Integer dueDate) {
+		this.dueDate = dueDate;
 	}
 
 }

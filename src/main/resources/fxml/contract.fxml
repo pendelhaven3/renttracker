@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import com.pj.renttracker.gui.component.AppDatePicker?>
 <?import com.pj.renttracker.gui.table.ContractPaymentsTableView?>
+<?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" 
 		fx:controller="com.pj.renttracker.controller.ContractController">
@@ -21,6 +22,7 @@
 	</top>
 	<center>
 		<VBox alignment="center" spacing="10">
+			<padding><Insets top="10" bottom="10" /></padding>
 			<GridPane vgap="10" alignment="center">
 				<Label text="Tenant" prefWidth="100"
 					GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -28,9 +30,9 @@
 					GridPane.columnIndex="1" GridPane.rowIndex="0" />
 				<Label prefWidth="50"
 					GridPane.columnIndex="2" GridPane.rowIndex="0" />
-				<Label text="Start Date"
+				<Label text="Due Date"
 					GridPane.columnIndex="3" GridPane.rowIndex="0" />
-				<Label fx:id="startDateLabel"
+				<Label fx:id="dueDateLabel"
 					GridPane.columnIndex="4" GridPane.rowIndex="0" />
 					
 				<Label text="Unit" prefWidth="120"
@@ -41,6 +43,11 @@
 					GridPane.columnIndex="3" GridPane.rowIndex="1" />
 				<Label fx:id="amountLabel"
 					GridPane.columnIndex="4" GridPane.rowIndex="1" />
+					
+				<Label text="Start Date"
+					GridPane.columnIndex="0" GridPane.rowIndex="2" />
+				<Label fx:id="startDateLabel"
+					GridPane.columnIndex="1" GridPane.rowIndex="2" />
 			</GridPane>
 		
 			<Button text="Update Contract" onAction="#updateContract" />

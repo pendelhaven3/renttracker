@@ -50,10 +50,20 @@ public class ContractsTableView extends TableView<Contract> {
 			}
 		});
 
+		TableColumn<Contract, String> dueDateColumn = new TableColumn<>("Due Date");
+		dueDateColumn.setCellValueFactory(new StringCellValueFactory<Contract>() {
+
+			@Override
+			protected String getValue(Contract item) {
+				return String.valueOf(item.getDueDate());
+			}
+		});
+
 		getColumns().add(tenantColumn);
 		getColumns().add(unitColumn);
-		getColumns().add(startDateColumn);
 		getColumns().add(amountColumn);
+		getColumns().add(dueDateColumn);
+		getColumns().add(startDateColumn);
 	}
 	
 }

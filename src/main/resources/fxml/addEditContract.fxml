@@ -39,10 +39,14 @@
 					GridPane.columnIndex="0" GridPane.rowIndex="2" />
 				<TextField fx:id="amountField"
 					GridPane.columnIndex="1" GridPane.rowIndex="2" />
-				<Label text="Start Date"
+				<Label text="Due Date"
 					GridPane.columnIndex="0" GridPane.rowIndex="3" />
-				<AppDatePicker fx:id="startDatePicker"
+				<TextField fx:id="dueDateField"
 					GridPane.columnIndex="1" GridPane.rowIndex="3" />
+				<Label text="Start Date"
+					GridPane.columnIndex="0" GridPane.rowIndex="4" />
+				<AppDatePicker fx:id="startDatePicker"
+					GridPane.columnIndex="1" GridPane.rowIndex="4" />
 			</GridPane>
 		
 			<Button text="Save" onAction="#saveContract" />

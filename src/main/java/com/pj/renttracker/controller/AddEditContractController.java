@@ -1,5 +1,6 @@
 package com.pj.renttracker.controller;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ import javafx.scene.control.TextField;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class AddEditContractController extends AbstractController {
 
+	private static final int FIRST_DAY_OF_MONTH = 1;
+	private static final int LAST_DAY_OF_MONTH = 31;
+
 	private static final Logger logger = LoggerFactory.getLogger(AddEditContractController.class);
 	
 	@Autowired private TenantService tenantService;
@@ -40,6 +44,7 @@ public class AddEditContractController extends AbstractController {
 	@FXML private ComboBox<Tenant> tenantComboBox;
 	@FXML private ComboBox<Unit> unitComboBox;
 	@FXML private TextField amountField;
+	@FXML private TextField dueDateField;
 	@FXML private AppDatePicker startDatePicker;
 	@FXML private Button deleteButton;
 	
@@ -56,6 +61,7 @@ public class AddEditContractController extends AbstractController {
 			tenantComboBox.setValue(contract.getTenant());
 			unitComboBox.setValue(contract.getUnit());
 			amountField.setText(FormatterUtil.formatAmount(contract.getRentalAmount()));
+			dueDateField.setText(String.valueOf(contract.getDueDate()));
 			startDatePicker.setValue(DateUtil.toLocalDate(contract.getStartDate()));
 			deleteButton.setDisable(false);
 		} else {
@@ -88,6 +94,7 @@ public class AddEditContractController extends AbstractController {
 		contract.setTenant(tenantComboBox.getValue());
 		contract.setUnit(unitComboBox.getValue());
 		contract.setRentalAmount(NumberUtil.toBigDecimal(amountField.getText()));
+		contract.setDueDate(Integer.valueOf(dueDateField.getText()));
 		contract.setStartDate(DateUtil.toDate(startDatePicker.getValue()));
 		
 		try {
@@ -127,6 +134,24 @@ public class AddEditContractController extends AbstractController {
 			return false;
 		}
 
+		if (StringUtils.isEmpty(dueDateField.getText())) { 
+			ShowDialog.error("Due Date must be specified");
+			dueDateField.requestFocus();
+			return false;
+		}
+		
+		if (!NumberUtils.isDigits(dueDateField.getText())) { 
+			ShowDialog.error("Due Date must be a valid number");
+			dueDateField.requestFocus();
+			return false;
+		}
+		
+		if (!isValidDueDate(dueDateField.getText())) { 
+			ShowDialog.error("Due Date must be between 1 and 31");
+			dueDateField.requestFocus();
+			return false;
+		}
+
 		if (startDatePicker.getValue() == null) {
 			ShowDialog.error("Start Date must be specified");
 			startDatePicker.requestFocus();
@@ -136,6 +161,11 @@ public class AddEditContractController extends AbstractController {
 		// TODO: Check if unit is available
 		
 		return true;
+	}
+
+	private boolean isValidDueDate(String dueDateString) {
+		int dueDate = Integer.parseInt(dueDateString);
+		return dueDate >= FIRST_DAY_OF_MONTH && dueDate <= LAST_DAY_OF_MONTH;
 	}
 
 }

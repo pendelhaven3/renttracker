@@ -37,6 +37,7 @@ public class ContractController extends AbstractController {
 	@FXML private Label unitLabel;
 	@FXML private Label amountLabel;
 	@FXML private Label startDateLabel;
+	@FXML private Label dueDateLabel;
 	@FXML private ContractPaymentsTableView paymentsTable;
 	@FXML private Button deleteButton;
 	
@@ -50,6 +51,7 @@ public class ContractController extends AbstractController {
 		unitLabel.setText(contract.getUnit().toString());
 		amountLabel.setText(FormatterUtil.formatAmount(contract.getRentalAmount()));
 		startDateLabel.setText(FormatterUtil.formatDate(contract.getStartDate()));
+		dueDateLabel.setText(String.valueOf(contract.getDueDate()));
 		deleteButton.setDisable(false);
 		
 		paymentsTable.getItems().clear(); // workaround since setItems() does not refresh
