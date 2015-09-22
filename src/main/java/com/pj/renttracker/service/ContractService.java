@@ -16,5 +16,7 @@ public interface ContractService {
 	void save(ContractPayment payment);
 
 	void delete(ContractPayment payment);
+
+	List<Contract> findContractsWithUpcomingDues();
 	
 }

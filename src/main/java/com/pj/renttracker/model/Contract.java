@@ -1,6 +1,7 @@
 package com.pj.renttracker.model;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
+import javax.persistence.PostLoad;
+import javax.persistence.Transient;
 
 @Entity
 public class Contract {
@@ -33,6 +36,24 @@ public class Contract {
 	@OrderBy("paymentDate DESC")
 	private List<ContractPayment> payments;
 
+	@Transient
+	private Date nextDueDate;
+	
+	public Date getNextDueDate() {
+		return nextDueDate;
+	}
+	
+	@PostLoad
+	public void calculateNextDueDate() {
+		Calendar calendar = Calendar.getInstance();
+		int currentDay = calendar.get(Calendar.DATE);
+		if (currentDay > dueDate) {
+			calendar.add(Calendar.MONTH, 1);
+		}
+		calendar.set(Calendar.DATE, dueDate);
+		nextDueDate = calendar.getTime();
+	}
+	
 	public Long getId() {
 		return id;
 	}
