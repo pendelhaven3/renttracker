@@ -27,7 +27,7 @@
 	<center>
 		<VBox alignment="center" spacing="10">
 			<GridPane vgap="10" alignment="center">
-				<Label text="Tenant" prefWidth="100" 
+				<Label text="Tenant" prefWidth="150" 
 					GridPane.columnIndex="0" GridPane.rowIndex="0" />
 				<ComboBox fx:id="tenantComboBox" prefWidth="300"
 					GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -35,13 +35,13 @@
 					GridPane.columnIndex="0" GridPane.rowIndex="1" />
 				<ComboBox fx:id="unitComboBox" prefWidth="300"
 					GridPane.columnIndex="1" GridPane.rowIndex="1" />
-				<Label text="Amount"
+				<Label text="Rental Amount"
 					GridPane.columnIndex="0" GridPane.rowIndex="2" />
-				<TextField fx:id="amountField"
+				<TextField fx:id="rentalAmountField"
 					GridPane.columnIndex="1" GridPane.rowIndex="2" />
-				<Label text="Due Date"
+				<Label text="Rental Date"
 					GridPane.columnIndex="0" GridPane.rowIndex="3" />
-				<TextField fx:id="dueDateField"
+				<TextField fx:id="rentalDateField"
 					GridPane.columnIndex="1" GridPane.rowIndex="3" />
 				<Label text="Start Date"
 					GridPane.columnIndex="0" GridPane.rowIndex="4" />

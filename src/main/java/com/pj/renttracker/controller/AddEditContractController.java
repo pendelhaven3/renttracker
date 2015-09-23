@@ -43,8 +43,8 @@ public class AddEditContractController extends AbstractController {
 	
 	@FXML private ComboBox<Tenant> tenantComboBox;
 	@FXML private ComboBox<Unit> unitComboBox;
-	@FXML private TextField amountField;
-	@FXML private TextField dueDateField;
+	@FXML private TextField rentalAmountField;
+	@FXML private TextField rentalDateField;
 	@FXML private AppDatePicker startDatePicker;
 	@FXML private Button deleteButton;
 	
@@ -60,8 +60,8 @@ public class AddEditContractController extends AbstractController {
 			contract = contractService.getContract(contract.getId());
 			tenantComboBox.setValue(contract.getTenant());
 			unitComboBox.setValue(contract.getUnit());
-			amountField.setText(FormatterUtil.formatAmount(contract.getRentalAmount()));
-			dueDateField.setText(String.valueOf(contract.getDueDate()));
+			rentalAmountField.setText(FormatterUtil.formatAmount(contract.getRentalAmount()));
+			rentalDateField.setText(String.valueOf(contract.getRentalDate()));
 			startDatePicker.setValue(DateUtil.toLocalDate(contract.getStartDate()));
 			deleteButton.setDisable(false);
 		} else {
@@ -93,8 +93,8 @@ public class AddEditContractController extends AbstractController {
 		}
 		contract.setTenant(tenantComboBox.getValue());
 		contract.setUnit(unitComboBox.getValue());
-		contract.setRentalAmount(NumberUtil.toBigDecimal(amountField.getText()));
-		contract.setDueDate(Integer.valueOf(dueDateField.getText()));
+		contract.setRentalAmount(NumberUtil.toBigDecimal(rentalAmountField.getText()));
+		contract.setRentalDate(Integer.valueOf(rentalDateField.getText()));
 		contract.setStartDate(DateUtil.toDate(startDatePicker.getValue()));
 		
 		try {
@@ -122,33 +122,33 @@ public class AddEditContractController extends AbstractController {
 			return false;
 		}
 		
-		if (StringUtils.isEmpty(amountField.getText())) { 
+		if (StringUtils.isEmpty(rentalAmountField.getText())) { 
 			ShowDialog.error("Amount must be specified");
-			amountField.requestFocus();
+			rentalAmountField.requestFocus();
 			return false;
 		}
 		
-		if (!NumberUtil.isAmount(amountField.getText())) { 
+		if (!NumberUtil.isAmount(rentalAmountField.getText())) { 
 			ShowDialog.error("Amount must be a valid amount");
-			amountField.requestFocus();
+			rentalAmountField.requestFocus();
 			return false;
 		}
 
-		if (StringUtils.isEmpty(dueDateField.getText())) { 
+		if (StringUtils.isEmpty(rentalDateField.getText())) { 
 			ShowDialog.error("Due Date must be specified");
-			dueDateField.requestFocus();
+			rentalDateField.requestFocus();
 			return false;
 		}
 		
-		if (!NumberUtils.isDigits(dueDateField.getText())) { 
+		if (!NumberUtils.isDigits(rentalDateField.getText())) { 
 			ShowDialog.error("Due Date must be a valid number");
-			dueDateField.requestFocus();
+			rentalDateField.requestFocus();
 			return false;
 		}
 		
-		if (!isValidDueDate(dueDateField.getText())) { 
+		if (!isValidRentalDate(rentalDateField.getText())) { 
 			ShowDialog.error("Due Date must be between 1 and 31");
-			dueDateField.requestFocus();
+			rentalDateField.requestFocus();
 			return false;
 		}
 
@@ -163,8 +163,8 @@ public class AddEditContractController extends AbstractController {
 		return true;
 	}
 
-	private boolean isValidDueDate(String dueDateString) {
-		int dueDate = Integer.parseInt(dueDateString);
+	private boolean isValidRentalDate(String rentalDateString) {
+		int dueDate = Integer.parseInt(rentalDateString);
 		return dueDate >= FIRST_DAY_OF_MONTH && dueDate <= LAST_DAY_OF_MONTH;
 	}
 

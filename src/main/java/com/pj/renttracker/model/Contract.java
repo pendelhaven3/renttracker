@@ -30,28 +30,28 @@ public class Contract {
 	
 	private Date startDate;
 	private BigDecimal rentalAmount;
-	private Integer dueDate;
+	private Integer rentalDate;
 	
 	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
 	@OrderBy("paymentDate DESC")
 	private List<ContractPayment> payments;
 
 	@Transient
-	private Date nextDueDate;
+	private Date nextRentalDate;
 	
-	public Date getNextDueDate() {
-		return nextDueDate;
+	public Date getNextRentalDate() {
+		return nextRentalDate;
 	}
 	
 	@PostLoad
-	public void calculateNextDueDate() {
+	public void calculateNextRentalDate() {
 		Calendar calendar = Calendar.getInstance();
 		int currentDay = calendar.get(Calendar.DATE);
-		if (currentDay > dueDate) {
+		if (currentDay > rentalDate) {
 			calendar.add(Calendar.MONTH, 1);
 		}
-		calendar.set(Calendar.DATE, dueDate);
-		nextDueDate = calendar.getTime();
+		calendar.set(Calendar.DATE, rentalDate);
+		nextRentalDate = calendar.getTime();
 	}
 	
 	public Long getId() {
@@ -102,12 +102,12 @@ public class Contract {
 		this.payments = payments;
 	}
 
-	public Integer getDueDate() {
-		return dueDate;
+	public Integer getRentalDate() {
+		return rentalDate;
 	}
 
-	public void setDueDate(Integer dueDate) {
-		this.dueDate = dueDate;
+	public void setRentalDate(Integer rentalDate) {
+		this.rentalDate = rentalDate;
 	}
 
 }

@@ -33,7 +33,7 @@ public class UpcomingRentalDuesController extends AbstractController {
 
 	private List<Contract> getContractsWithUpcomingDues() {
 		List<Contract> contracts = contractService.findContractsWithUpcomingDues();
-		Collections.sort(contracts, (o1, o2) -> o1.getNextDueDate().compareTo(o2.getNextDueDate()));
+		Collections.sort(contracts, (o1, o2) -> o1.getNextRentalDate().compareTo(o2.getNextRentalDate()));
 		return contracts;
 	}
 
@@ -43,7 +43,7 @@ public class UpcomingRentalDuesController extends AbstractController {
 
 			@Override
 			protected String getValue(Contract item) {
-				return FormatterUtil.formatDate(item.getNextDueDate());
+				return FormatterUtil.formatDate(item.getNextRentalDate());
 			}
 		});
 		dueDateColumn.getStyleClass().add("center");

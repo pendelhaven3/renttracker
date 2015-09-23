@@ -41,7 +41,7 @@ public class ContractsTableView extends TableView<Contract> {
 			}
 		});
 
-		TableColumn<Contract, String> amountColumn = new TableColumn<>("Amount");
+		TableColumn<Contract, String> amountColumn = new TableColumn<>("Rental Amount");
 		amountColumn.setCellValueFactory(new StringCellValueFactory<Contract>() {
 
 			@Override
@@ -50,12 +50,12 @@ public class ContractsTableView extends TableView<Contract> {
 			}
 		});
 
-		TableColumn<Contract, String> dueDateColumn = new TableColumn<>("Due Date");
+		TableColumn<Contract, String> dueDateColumn = new TableColumn<>("Rental Date");
 		dueDateColumn.setCellValueFactory(new StringCellValueFactory<Contract>() {
 
 			@Override
 			protected String getValue(Contract item) {
-				return String.valueOf(item.getDueDate());
+				return String.valueOf(item.getRentalDate());
 			}
 		});
 

@@ -30,16 +30,16 @@
 					GridPane.columnIndex="1" GridPane.rowIndex="0" />
 				<Label prefWidth="50"
 					GridPane.columnIndex="2" GridPane.rowIndex="0" />
-				<Label text="Due Date"
+				<Label text="Rental Date" prefWidth="150"
 					GridPane.columnIndex="3" GridPane.rowIndex="0" />
-				<Label fx:id="dueDateLabel"
+				<Label fx:id="rentalDateLabel"
 					GridPane.columnIndex="4" GridPane.rowIndex="0" />
 					
 				<Label text="Unit" prefWidth="120"
 					GridPane.columnIndex="0" GridPane.rowIndex="1" />
 				<Label fx:id="unitLabel"
 					GridPane.columnIndex="1" GridPane.rowIndex="1" />
-				<Label text="Amount" prefWidth="120"
+				<Label text="Rental Amount" prefWidth="120"
 					GridPane.columnIndex="3" GridPane.rowIndex="1" />
 				<Label fx:id="amountLabel"
 					GridPane.columnIndex="4" GridPane.rowIndex="1" />
