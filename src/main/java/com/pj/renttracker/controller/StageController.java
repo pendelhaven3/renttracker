@@ -12,6 +12,7 @@ import com.pj.renttracker.ControllerFactory;
 import com.pj.renttracker.Parameter;
 import com.pj.renttracker.model.Unit;
 import com.pj.renttracker.model.Contract;
+import com.pj.renttracker.model.Location;
 import com.pj.renttracker.model.Tenant;
 
 import javafx.fxml.FXMLLoader;
@@ -138,6 +139,21 @@ public class StageController {
 
 	public void showUpcomingRentalDuesScreen() {
 		loadSceneFromFXML("upcomingRentalDues");
+	}
+
+	public void showLocationListScreen() {
+		loadSceneFromFXML("locationList");
+	}
+
+	public void showAddLocationScreen() {
+		loadSceneFromFXML("location");
+	}
+
+	public void showUpdateLocationScreen(Location location) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("location", location);
+		
+		loadSceneFromFXML("location", paramMap);
 	}
 
 }

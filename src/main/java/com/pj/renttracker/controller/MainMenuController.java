@@ -31,4 +31,8 @@ public class MainMenuController extends AbstractController {
 		stageController.showUpcomingRentalDuesScreen();
 	}
 
+	@FXML public void goToLocationListScreen() {
+		stageController.showLocationListScreen();
+	}
+
 }
