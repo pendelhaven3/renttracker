@@ -5,8 +5,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.BorderPane?>
 <?import com.pj.renttracker.gui.component.UppercaseTextField?>
+<?import javafx.scene.layout.GridPane?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" 
 		fx:controller="com.pj.renttracker.controller.UnitController" >
@@ -17,11 +19,18 @@
 		</ToolBar>
 	</top>
 	<center>
-		<VBox spacing="10" alignment="center">
-			<HBox spacing="20" alignment="center">
-				<Label text="Name:" />
-				<UppercaseTextField fx:id="nameField" prefWidth="300" />
-			</HBox>
+		<VBox alignment="center" spacing="10">
+			<GridPane vgap="10" alignment="center">
+				<Label text="Name" prefWidth="100"
+					GridPane.columnIndex="0" GridPane.rowIndex="0" />
+				<UppercaseTextField fx:id="nameField"
+					GridPane.columnIndex="1" GridPane.rowIndex="0" />
+				<Label text="Location"
+					GridPane.columnIndex="0" GridPane.rowIndex="1" />
+				<ComboBox fx:id="locationComboBox" prefWidth="300"
+					GridPane.columnIndex="1" GridPane.rowIndex="1" />
+			</GridPane>
+		
 			<Button text="Save" onAction="#saveUnit" />
 		</VBox>
 	</center>

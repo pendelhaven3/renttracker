@@ -24,6 +24,11 @@
 					<PropertyValueFactory property="name" />
 				</cellValueFactory>
 			</TableColumn>
+			<TableColumn text="Location">
+				<cellValueFactory>
+					<PropertyValueFactory property="location" />
+				</cellValueFactory>
+			</TableColumn>
 		</columns>
 	</TableView>
 	

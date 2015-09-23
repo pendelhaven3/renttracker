@@ -3,6 +3,7 @@ package com.pj.renttracker.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -15,6 +16,9 @@ public class Unit {
 	private Long id;
 
 	private String name;
+	
+	@OneToOne
+	private Location location;
 
 	public Long getId() {
 		return id;
@@ -56,6 +60,14 @@ public class Unit {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	
 }

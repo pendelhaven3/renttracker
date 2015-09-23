@@ -53,4 +53,9 @@ public class Location {
 				.isEquals();
 	}
 	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 }

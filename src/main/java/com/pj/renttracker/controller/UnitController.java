@@ -9,11 +9,15 @@ import org.springframework.stereotype.Controller;
 
 import com.pj.renttracker.Parameter;
 import com.pj.renttracker.gui.component.ShowDialog;
+import com.pj.renttracker.model.Location;
 import com.pj.renttracker.model.Unit;
+import com.pj.renttracker.service.LocationService;
 import com.pj.renttracker.service.UnitService;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 @Controller
@@ -23,18 +27,22 @@ public class UnitController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(UnitController.class);
 	
 	@Autowired private UnitService unitService;
+	@Autowired private LocationService locationService;
 	
 	@FXML private TextField nameField;
+	@FXML private ComboBox<Location> locationComboBox;
 	@FXML private Button deleteButton;
 	
 	@Parameter private Unit unit;
 	
 	@Override
 	public void updateDisplay() {
+		locationComboBox.setItems(FXCollections.observableList(locationService.getAllLocations()));
 		if (unit != null) {
 			stageController.setTitle("Update Unit");
 			unit = unitService.getUnit(unit.getId());
 			nameField.setText(unit.getName());
+			locationComboBox.setValue(unit.getLocation());
 			deleteButton.setDisable(false);
 		} else {
 			stageController.setTitle("Add New Unit");
@@ -60,6 +68,7 @@ public class UnitController extends AbstractController {
 			unit = new Unit();
 		}
 		unit.setName(nameField.getText());
+		unit.setLocation(locationComboBox.getValue());
 		
 		try {
 			unitService.save(unit);
@@ -81,6 +90,12 @@ public class UnitController extends AbstractController {
 		}
 		
 		// TODO: Check for duplicate name!
+		
+		if (locationComboBox.getValue() == null) {
+			ShowDialog.error("Location must be specified");
+			locationComboBox.requestFocus();
+			return false;
+		}
 		
 		return true;
 	}
