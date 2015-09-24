@@ -52,9 +52,9 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public List<Contract> findContractsWithUpcomingDues() {
+	public List<Contract> findContractsWithUpcomingRent() {
 		ContractSearchCriteria criteria = new ContractSearchCriteria();
-		criteria.setDueDates(getCurrentDayAndNextSevenDays());
+		criteria.setRentalDates(getCurrentDayAndNextSevenDays());
 		return contractDao.search(criteria);
 	}
 

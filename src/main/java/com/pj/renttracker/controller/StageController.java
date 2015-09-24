@@ -137,8 +137,8 @@ public class StageController {
 		loadSceneFromFXML("contract", paramMap);
 	}
 
-	public void showUpcomingRentalDuesScreen() {
-		loadSceneFromFXML("upcomingRentalDues");
+	public void showUpcomingRentsScreen() {
+		loadSceneFromFXML("upcomingRents");
 	}
 
 	public void showLocationListScreen() {

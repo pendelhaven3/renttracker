@@ -6,7 +6,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import com.pj.renttracker.gui.table.ContractsTableView?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.pj.renttracker.controller.UpcomingRentalDuesController" 
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.pj.renttracker.controller.UpcomingRentsController" 
 	alignment="center">
 	
 	<ToolBar>

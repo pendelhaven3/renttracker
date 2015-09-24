@@ -17,6 +17,6 @@ public interface ContractService {
 
 	void delete(ContractPayment payment);
 
-	List<Contract> findContractsWithUpcomingDues();
+	List<Contract> findContractsWithUpcomingRent();
 	
 }

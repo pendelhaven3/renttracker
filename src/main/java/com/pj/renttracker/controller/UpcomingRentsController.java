@@ -18,7 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 @Controller
-public class UpcomingRentalDuesController extends AbstractController {
+public class UpcomingRentsController extends AbstractController {
 
 	@Autowired private ContractService contractService;
 	
@@ -26,27 +26,27 @@ public class UpcomingRentalDuesController extends AbstractController {
 	
 	@Override
 	public void updateDisplay() {
-		stageController.setTitle("Upcoming Rental Dues");
+		stageController.setTitle("Upcoming Rents");
 		initializeTable();
-		table.setItems(FXCollections.observableList(getContractsWithUpcomingDues()));
+		table.setItems(FXCollections.observableList(getContractsWithUpcomingRent()));
 	}
 
-	private List<Contract> getContractsWithUpcomingDues() {
-		List<Contract> contracts = contractService.findContractsWithUpcomingDues();
+	private List<Contract> getContractsWithUpcomingRent() {
+		List<Contract> contracts = contractService.findContractsWithUpcomingRent();
 		Collections.sort(contracts, (o1, o2) -> o1.getNextRentalDate().compareTo(o2.getNextRentalDate()));
 		return contracts;
 	}
 
 	private void initializeTable() {
-		TableColumn<Contract, String> dueDateColumn = new TableColumn<>("Due Date");
-		dueDateColumn.setCellValueFactory(new StringCellValueFactory<Contract>() {
+		TableColumn<Contract, String> rentalDateColumn = new TableColumn<>("Rental Date");
+		rentalDateColumn.setCellValueFactory(new StringCellValueFactory<Contract>() {
 
 			@Override
 			protected String getValue(Contract item) {
 				return FormatterUtil.formatDate(item.getNextRentalDate());
 			}
 		});
-		dueDateColumn.getStyleClass().add("center");
+		rentalDateColumn.getStyleClass().add("center");
 
 		TableColumn<Contract, String> tenantColumn = new TableColumn<>("Tenant");
 		tenantColumn.setCellValueFactory(new StringCellValueFactory<Contract>() {
@@ -77,7 +77,7 @@ public class UpcomingRentalDuesController extends AbstractController {
 		amountColumn.getStyleClass().add("right");
 
 		ObservableList<TableColumn<Contract, ?>> columns = table.getColumns();
-		columns.add(dueDateColumn);
+		columns.add(rentalDateColumn);
 		columns.add(tenantColumn);
 		columns.add(unitColumn);
 		columns.add(amountColumn);

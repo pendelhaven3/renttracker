@@ -49,8 +49,8 @@ public class ContractDaoImpl implements ContractDao {
 		Root<Contract> contract = queryCriteria.from(Contract.class);
 		
 		List<Predicate> predicates = new ArrayList<>();
-		if (!criteria.getDueDates().isEmpty()) {
-			predicates.add(contract.get("dueDate").in(criteria.getDueDates()));
+		if (!criteria.getRentalDates().isEmpty()) {
+			predicates.add(contract.get("rentalDate").in(criteria.getRentalDates()));
 		}
 		queryCriteria.where(predicates.toArray(new Predicate[]{}));
 		

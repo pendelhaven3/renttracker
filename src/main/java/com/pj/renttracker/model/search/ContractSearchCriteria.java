@@ -5,14 +5,14 @@ import java.util.Set;
 
 public class ContractSearchCriteria {
 
-	private Set<Integer> dueDates = new HashSet<>();
+	private Set<Integer> rentalDates = new HashSet<>();
 
-	public Set<Integer> getDueDates() {
-		return dueDates;
+	public Set<Integer> getRentalDates() {
+		return rentalDates;
 	}
 
-	public void setDueDates(Set<Integer> dueDates) {
-		this.dueDates = dueDates;
+	public void setRentalDates(Set<Integer> rentalDates) {
+		this.rentalDates = rentalDates;
 	}
 	
 }
