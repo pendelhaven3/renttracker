@@ -3,8 +3,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.ToolBar?>
-<?import com.pj.renttracker.gui.table.ContractsTableView?>
+<?import com.pj.renttracker.gui.component.AppPropertyValueFactory?>
 
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.pj.renttracker.controller.UpcomingRentsController" 
 	alignment="center">
@@ -15,6 +16,33 @@
 	
 	<TableView fx:id="table" VBox.vgrow="always">
 		<columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+		<columns>
+			<TableColumn text="Rental Date">
+				<cellValueFactory>
+					<AppPropertyValueFactory property="nextRentalDate" />
+				</cellValueFactory>
+			</TableColumn>
+			<TableColumn text="Tenant">
+				<cellValueFactory>
+					<AppPropertyValueFactory property="tenant" />
+				</cellValueFactory>
+			</TableColumn>
+			<TableColumn text="Unit">
+				<cellValueFactory>
+					<AppPropertyValueFactory property="unit" />
+				</cellValueFactory>
+			</TableColumn>
+			<TableColumn text="Location">
+				<cellValueFactory>
+					<AppPropertyValueFactory property="unit.location" />
+				</cellValueFactory>
+			</TableColumn>
+			<TableColumn text="Amount" styleClass="right">
+				<cellValueFactory>
+					<AppPropertyValueFactory property="rentalAmount" />
+				</cellValueFactory>
+			</TableColumn>
+		</columns>
 	</TableView>
 
 </VBox>
