@@ -47,8 +47,10 @@ public class AppPropertyValueFactory <T>
 			value = FormatterUtil.formatDate((Date)item);
 		} else if (item instanceof BigDecimal) {
 			value = FormatterUtil.formatAmount((BigDecimal)item);
-		} else {
+		} else if (item != null) {
 			value = item.toString();
+		} else {
+			value = "";
 		}
 		return new ReadOnlyStringWrapper(value);
 	}

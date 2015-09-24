@@ -14,14 +14,15 @@ import com.pj.renttracker.Parameter;
 import com.pj.renttracker.dialog.ContractPaymentDialog;
 import com.pj.renttracker.gui.component.DoubleClickEventHandler;
 import com.pj.renttracker.gui.component.ShowDialog;
-import com.pj.renttracker.gui.table.ContractPaymentsTableView;
 import com.pj.renttracker.model.Contract;
+import com.pj.renttracker.model.ContractPayment;
 import com.pj.renttracker.service.ContractService;
 import com.pj.renttracker.util.FormatterUtil;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 
 @Controller
@@ -38,7 +39,7 @@ public class ContractController extends AbstractController {
 	@FXML private Label amountLabel;
 	@FXML private Label startDateLabel;
 	@FXML private Label rentalDateLabel;
-	@FXML private ContractPaymentsTableView paymentsTable;
+	@FXML private TableView<ContractPayment> paymentsTable;
 	@FXML private Button deleteButton;
 	
 	@Parameter private Contract contract;
