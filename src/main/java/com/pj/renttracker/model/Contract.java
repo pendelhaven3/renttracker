@@ -35,6 +35,10 @@ public class Contract {
 	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
 	@OrderBy("paymentDate DESC")
 	private List<ContractPayment> payments;
+	
+	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+	@OrderBy("rentDate DESC")
+	private List<ContractRent> rents;
 
 	@Transient
 	private Date nextRentalDate;
@@ -108,6 +112,14 @@ public class Contract {
 
 	public void setRentalDate(Integer rentalDate) {
 		this.rentalDate = rentalDate;
+	}
+
+	public List<ContractRent> getRents() {
+		return rents;
+	}
+
+	public void setRents(List<ContractRent> rents) {
+		this.rents = rents;
 	}
 
 }
