@@ -10,12 +10,14 @@ import com.pj.renttracker.Parameter;
 import com.pj.renttracker.gui.component.ShowDialog;
 import com.pj.renttracker.model.Contract;
 import com.pj.renttracker.model.ContractPayment;
+import com.pj.renttracker.model.PaymentType;
 import com.pj.renttracker.service.ContractService;
 import com.pj.renttracker.util.DateUtil;
 import com.pj.renttracker.util.FormatterUtil;
 import com.pj.renttracker.util.NumberUtil;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
@@ -28,6 +30,7 @@ public class ContractPaymentDialog extends AbstractDialog {
 	
 	@FXML private DatePicker paymentDatePicker;
 	@FXML private TextField amountField;
+	@FXML private ComboBox<PaymentType> paymentTypeComboBox;
 	@FXML private TextField remarksField;
 	
 	@Parameter private Contract contract;
@@ -35,9 +38,12 @@ public class ContractPaymentDialog extends AbstractDialog {
 	
 	@Override
 	public void updateDisplay() {
+		paymentTypeComboBox.getItems().addAll(PaymentType.values());
+		
 		if (payment != null) {
 			paymentDatePicker.setValue(DateUtil.toLocalDate(payment.getPaymentDate()));
 			amountField.setText(FormatterUtil.formatAmount(payment.getAmount()));
+			paymentTypeComboBox.setValue(payment.getPaymentType());
 			remarksField.setText(payment.getRemarks());
 		}
 	}
@@ -57,6 +63,7 @@ public class ContractPaymentDialog extends AbstractDialog {
 		} else {
 			payment.setAmount(null);
 		}
+		payment.setPaymentType(paymentTypeComboBox.getValue());
 		if (!StringUtils.isEmpty(remarksField.getText())) {
 			payment.setRemarks(remarksField.getText().trim());
 		} else {
@@ -91,6 +98,12 @@ public class ContractPaymentDialog extends AbstractDialog {
 		if (!NumberUtil.isAmount(amountField.getText())) {
 			ShowDialog.error("Amount must be a valid amount");
 			amountField.requestFocus();
+			return false;
+		}
+		
+		if (paymentTypeComboBox.getValue() == null) {
+			ShowDialog.error("Payment Type must be specified");
+			paymentTypeComboBox.requestFocus();
 			return false;
 		}
 		

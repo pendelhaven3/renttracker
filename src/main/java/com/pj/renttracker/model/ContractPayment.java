@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -24,6 +26,9 @@ public class ContractPayment {
 	private Date paymentDate;
 	private BigDecimal amount;
 	private String remarks;
+	
+	@Enumerated(EnumType.STRING)
+	private PaymentType paymentType;
 
 	public Long getId() {
 		return id;
@@ -84,6 +89,14 @@ public class ContractPayment {
 		return new EqualsBuilder()
 				.append(id, other.getId())
 				.isEquals();
+	}
+
+	public PaymentType getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(PaymentType paymentType) {
+		this.paymentType = paymentType;
 	}
 
 }

@@ -14,12 +14,21 @@ public class ContractPaymentsTableView extends TableView<ContractPayment> {
 	}
 
 	private void initializeColumns() {
-		TableColumn<ContractPayment, String> tenantColumn = new TableColumn<>("Payment Date");
-		tenantColumn.setCellValueFactory(new StringCellValueFactory<ContractPayment>() {
+		TableColumn<ContractPayment, String> paymentDateColumn = new TableColumn<>("Payment Date");
+		paymentDateColumn.setCellValueFactory(new StringCellValueFactory<ContractPayment>() {
 
 			@Override
 			protected String getValue(ContractPayment item) {
 				return FormatterUtil.formatDate(item.getPaymentDate());
+			}
+		});
+
+		TableColumn<ContractPayment, String> paymentTypeColumn = new TableColumn<>("Payment Type");
+		paymentTypeColumn.setCellValueFactory(new StringCellValueFactory<ContractPayment>() {
+
+			@Override
+			protected String getValue(ContractPayment item) {
+				return item.getPaymentType().toString();
 			}
 		});
 
@@ -42,7 +51,8 @@ public class ContractPaymentsTableView extends TableView<ContractPayment> {
 			}
 		});
 
-		getColumns().add(tenantColumn);
+		getColumns().add(paymentDateColumn);
+		getColumns().add(paymentTypeColumn);
 		getColumns().add(amountColumn);
 		getColumns().add(remarksColumn);
 	}
