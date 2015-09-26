@@ -1,7 +1,9 @@
 package com.pj.renttracker;
 
+import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,8 @@ public class Bootstrap {
 	
 	public void run() {
 		for (Contract contract : contractService.getAllContracts()) {
+			contract = contractService.getContract(contract.getId());
+			
 			Date referenceDate = newDate();
 			if (!contract.isRentDate(referenceDate)) {
 				referenceDate = contract.getPreviousRentDate(newDate());
@@ -36,7 +40,7 @@ public class Bootstrap {
 	}
 	
 	Date newDate() {
-		return new Date();
+		return DateUtils.truncate(new Date(), Calendar.DATE);
 	}
 	
 }

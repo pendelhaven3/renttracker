@@ -16,6 +16,7 @@ import com.pj.renttracker.gui.component.DoubleClickEventHandler;
 import com.pj.renttracker.gui.component.ShowDialog;
 import com.pj.renttracker.model.Contract;
 import com.pj.renttracker.model.ContractPayment;
+import com.pj.renttracker.model.ContractRent;
 import com.pj.renttracker.service.ContractService;
 import com.pj.renttracker.util.FormatterUtil;
 
@@ -40,6 +41,7 @@ public class ContractController extends AbstractController {
 	@FXML private Label startDateLabel;
 	@FXML private Label rentalDateLabel;
 	@FXML private TableView<ContractPayment> paymentsTable;
+	@FXML private TableView<ContractRent> rentsTable;
 	@FXML private Button deleteButton;
 	
 	@Parameter private Contract contract;
@@ -57,6 +59,9 @@ public class ContractController extends AbstractController {
 		
 		paymentsTable.getItems().clear(); // workaround since setItems() does not refresh
 		paymentsTable.getItems().addAll(contract.getPayments());
+		
+		rentsTable.getItems().clear(); // workaround since setItems() does not refresh
+		rentsTable.getItems().addAll(contract.getRents());
 		
 		paymentsTable.setOnMouseClicked(new DoubleClickEventHandler() {
 			

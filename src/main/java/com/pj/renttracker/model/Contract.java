@@ -151,7 +151,7 @@ public class Contract {
 
 	public boolean hasRentWithRentDate(Date previousRentDate) {
 		return rents.stream().anyMatch(rent ->
-				rent.getRentDate().equals(previousRentDate));
+				DateUtils.isSameDay(previousRentDate, rent.getRentDate()));
 	}
 
 	public boolean isRentDate(Date date) {

@@ -12,6 +12,8 @@
 <?import com.pj.renttracker.gui.component.AppDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import com.pj.renttracker.gui.component.AppPropertyValueFactory?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" 
 		fx:controller="com.pj.renttracker.controller.ContractController">
@@ -53,36 +55,61 @@
 		
 			<Button text="Update Contract" onAction="#updateContract" />
 			
-			<TableView fx:id="paymentsTable">
-				<columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
-				<columns>
-					<TableColumn text="Payment Date">
-						<cellValueFactory>
-							<AppPropertyValueFactory property="paymentDate" />
-						</cellValueFactory>
-					</TableColumn>
-					<TableColumn text="Payment Type">
-						<cellValueFactory>
-							<AppPropertyValueFactory property="paymentType" />
-						</cellValueFactory>
-					</TableColumn>
-					<TableColumn text="Amount" styleClass="right">
-						<cellValueFactory>
-							<AppPropertyValueFactory property="amount" />
-						</cellValueFactory>
-					</TableColumn>
-					<TableColumn text="Remarks">
-						<cellValueFactory>
-							<AppPropertyValueFactory property="remarks" />
-						</cellValueFactory>
-					</TableColumn>
-				</columns>
-			</TableView>
-			
-			<HBox spacing="10" alignment="center">
-				<Button text="Add Payment" onAction="#addContractPayment" />
-				<Button text="Delete Payment" onAction="#deleteContractPayment" />
-			</HBox>
+			<TabPane VBox.vgrow="always">
+				<tabs>
+					<Tab text="Rents" closable="false">
+						<TableView fx:id="rentsTable">
+							<columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+							<columns>
+								<TableColumn text="Rent Date">
+									<cellValueFactory>
+										<AppPropertyValueFactory property="rentDate" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn text="Amount">
+									<cellValueFactory>
+										<AppPropertyValueFactory property="amount" />
+									</cellValueFactory>
+								</TableColumn>
+							</columns>
+						</TableView>
+					</Tab>
+					<Tab text="Payments" closable="false">
+						<VBox alignment="center" spacing="10">
+							<TableView fx:id="paymentsTable">
+								<columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+								<columns>
+									<TableColumn text="Payment Date">
+										<cellValueFactory>
+											<AppPropertyValueFactory property="paymentDate" />
+										</cellValueFactory>
+									</TableColumn>
+									<TableColumn text="Payment Type">
+										<cellValueFactory>
+											<AppPropertyValueFactory property="paymentType" />
+										</cellValueFactory>
+									</TableColumn>
+									<TableColumn text="Amount" styleClass="right">
+										<cellValueFactory>
+											<AppPropertyValueFactory property="amount" />
+										</cellValueFactory>
+									</TableColumn>
+									<TableColumn text="Remarks">
+										<cellValueFactory>
+											<AppPropertyValueFactory property="remarks" />
+										</cellValueFactory>
+									</TableColumn>
+								</columns>
+							</TableView>
+							
+							<HBox spacing="10" alignment="center">
+								<Button text="Add Payment" onAction="#addContractPayment" />
+								<Button text="Delete Payment" onAction="#deleteContractPayment" />
+							</HBox>
+						</VBox>
+					</Tab>
+				</tabs>
+			</TabPane>
 			
 		</VBox>
 	</center>
