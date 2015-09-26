@@ -23,5 +23,9 @@ public interface ContractService {
 	void save(ContractRent rent);
 
 	List<ContractRent> findAllRentsByContract(Contract contract);
+
+	void markRentAsPaid(ContractRent selectedRent);
+
+	void markRentAsUnpaid(ContractRent selectedRent);
 	
 }

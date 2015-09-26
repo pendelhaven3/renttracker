@@ -131,5 +131,37 @@ public class ContractController extends AbstractController {
 		
 		updateDisplay();
 	}
+
+	@FXML public void markRentAsPaid() {
+		if (!isRentSelected()) {
+			ShowDialog.error("No rent selected");
+			return;
+		}
+		
+		if (ShowDialog.confirm("Mark selected rent as paid?")) {
+			contractService.markRentAsPaid(getSelectedRent());
+			updateDisplay();
+		}
+	}
+	
+	@FXML public void markRentAsUnpaid() {
+		if (!isRentSelected()) {
+			ShowDialog.error("No rent selected");
+			return;
+		}
+		
+		if (ShowDialog.confirm("Mark selected rent as paid?")) {
+			contractService.markRentAsUnpaid(getSelectedRent());
+			updateDisplay();
+		}
+	}
+
+	private ContractRent getSelectedRent() {
+		return rentsTable.getSelectionModel().getSelectedItem();
+	}
+	
+	private boolean isRentSelected() {
+		return !rentsTable.getSelectionModel().isEmpty();
+	}
 	
 }

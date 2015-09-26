@@ -58,26 +58,33 @@
 			<TabPane VBox.vgrow="always">
 				<tabs>
 					<Tab text="Rents" closable="false">
-						<TableView fx:id="rentsTable">
-							<columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
-							<columns>
-								<TableColumn text="Rent Date">
-									<cellValueFactory>
-										<AppPropertyValueFactory property="rentDate" />
-									</cellValueFactory>
-								</TableColumn>
-								<TableColumn text="Amount">
-									<cellValueFactory>
-										<AppPropertyValueFactory property="amount" />
-									</cellValueFactory>
-								</TableColumn>
-								<TableColumn text="Status">
-									<cellValueFactory>
-										<AppPropertyValueFactory property="status" />
-									</cellValueFactory>
-								</TableColumn>
-							</columns>
-						</TableView>
+						<VBox alignment="center" spacing="10">
+							<TableView fx:id="rentsTable">
+								<columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+								<columns>
+									<TableColumn text="Rent Date">
+										<cellValueFactory>
+											<AppPropertyValueFactory property="rentDate" />
+										</cellValueFactory>
+									</TableColumn>
+									<TableColumn text="Amount">
+										<cellValueFactory>
+											<AppPropertyValueFactory property="amount" />
+										</cellValueFactory>
+									</TableColumn>
+									<TableColumn text="Status">
+										<cellValueFactory>
+											<AppPropertyValueFactory property="status" />
+										</cellValueFactory>
+									</TableColumn>
+								</columns>
+							</TableView>
+							
+							<HBox spacing="10" alignment="center">
+								<Button text="Mark As Paid" onAction="#markRentAsPaid" />
+								<Button text="Mark As Unpaid" onAction="#markRentAsUnpaid" />
+							</HBox>
+						</VBox>
 					</Tab>
 					<Tab text="Payments" closable="false">
 						<VBox alignment="center" spacing="10">

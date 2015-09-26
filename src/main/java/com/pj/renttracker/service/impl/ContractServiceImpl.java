@@ -99,5 +99,19 @@ public class ContractServiceImpl implements ContractService {
 	public List<ContractRent> findAllRentsByContract(Contract contract) {
 		return contractRentDao.findAllByContract(contract);
 	}
+
+	@Transactional
+	@Override
+	public void markRentAsPaid(ContractRent rent) {
+		rent.setPaid(true);
+		save(rent);
+	}
+
+	@Transactional
+	@Override
+	public void markRentAsUnpaid(ContractRent rent) {
+		rent.setPaid(false);
+		save(rent);
+	}
 	
 }
