@@ -71,6 +71,11 @@
 										<AppPropertyValueFactory property="amount" />
 									</cellValueFactory>
 								</TableColumn>
+								<TableColumn text="Status">
+									<cellValueFactory>
+										<AppPropertyValueFactory property="status" />
+									</cellValueFactory>
+								</TableColumn>
 							</columns>
 						</TableView>
 					</Tab>

@@ -3,6 +3,7 @@ package com.pj.renttracker.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,6 +24,9 @@ public class ContractRent {
 	
 	private Date rentDate;
 	private BigDecimal amount;
+	
+	@Column(columnDefinition = "boolean default false")
+	private boolean paid;
 
 	public Long getId() {
 		return id;
@@ -77,4 +81,16 @@ public class ContractRent {
 				.isEquals();
 	}
 
+	public boolean isPaid() {
+		return paid;
+	}
+
+	public void setPaid(boolean paid) {
+		this.paid = paid;
+	}
+
+	public String getStatus() {
+		return (paid) ? "Paid" : "Not Paid";
+	}
+	
 }
