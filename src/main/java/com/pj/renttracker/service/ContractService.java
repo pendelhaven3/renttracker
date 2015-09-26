@@ -21,5 +21,7 @@ public interface ContractService {
 	List<Contract> findContractsWithUpcomingRent();
 	
 	void save(ContractRent rent);
+
+	List<ContractRent> findAllRentsByContract(Contract contract);
 	
 }

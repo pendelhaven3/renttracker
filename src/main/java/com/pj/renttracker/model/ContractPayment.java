@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -30,6 +31,9 @@ public class ContractPayment {
 	@Enumerated(EnumType.STRING)
 	private PaymentType paymentType;
 
+	@OneToOne
+	private ContractRent rent;
+	
 	public Long getId() {
 		return id;
 	}
@@ -97,6 +101,14 @@ public class ContractPayment {
 
 	public void setPaymentType(PaymentType paymentType) {
 		this.paymentType = paymentType;
+	}
+
+	public ContractRent getRent() {
+		return rent;
+	}
+
+	public void setRent(ContractRent rent) {
+		this.rent = rent;
 	}
 
 }

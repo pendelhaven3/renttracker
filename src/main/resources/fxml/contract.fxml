@@ -94,6 +94,11 @@
 											<AppPropertyValueFactory property="paymentType" />
 										</cellValueFactory>
 									</TableColumn>
+									<TableColumn text="Rent">
+										<cellValueFactory>
+											<AppPropertyValueFactory property="rent" />
+										</cellValueFactory>
+									</TableColumn>
 									<TableColumn text="Amount" styleClass="right">
 										<cellValueFactory>
 											<AppPropertyValueFactory property="amount" />

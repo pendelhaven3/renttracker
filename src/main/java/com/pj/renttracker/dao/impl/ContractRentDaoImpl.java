@@ -21,7 +21,8 @@ public class ContractRentDaoImpl implements ContractRentDao {
 	@Override
 	public List<ContractRent> findAllByContract(Contract contract) {
 		TypedQuery<ContractRent> query = 
-				entityManager.createQuery("select r from ContractRent r where r.parent = ?", ContractRent.class);
+				entityManager.createQuery("select r from ContractRent r where r.parent = ? order by r.rentDate desc", 
+						ContractRent.class);
 		query.setParameter(1, contract);
 		return query.getResultList();
 	}

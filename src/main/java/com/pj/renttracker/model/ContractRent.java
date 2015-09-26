@@ -1,6 +1,7 @@
 package com.pj.renttracker.model;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import com.pj.renttracker.util.FormatterUtil;
 
 @Entity
 public class ContractRent {
@@ -91,6 +94,24 @@ public class ContractRent {
 
 	public String getStatus() {
 		return (paid) ? "Paid" : "Not Paid";
+	}
+	
+	public String getPeriodDescription() {
+		Calendar startDateCalendar = Calendar.getInstance();
+		startDateCalendar.setTime(rentDate);
+		startDateCalendar.add(Calendar.MONTH, -1);
+		startDateCalendar.add(Calendar.DATE, 1);
+		
+		return new StringBuilder()
+				.append(FormatterUtil.formatDate(startDateCalendar.getTime()))
+				.append(" - " )
+				.append(FormatterUtil.formatDate(rentDate))
+				.toString();
+	}
+	
+	@Override
+	public String toString() {
+		return getPeriodDescription();
 	}
 	
 }

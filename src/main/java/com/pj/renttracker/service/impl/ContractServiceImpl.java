@@ -94,5 +94,10 @@ public class ContractServiceImpl implements ContractService {
 	public void save(ContractRent rent) {
 		contractRentDao.save(rent);
 	}
+
+	@Override
+	public List<ContractRent> findAllRentsByContract(Contract contract) {
+		return contractRentDao.findAllByContract(contract);
+	}
 	
 }

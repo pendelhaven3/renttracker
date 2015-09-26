@@ -27,10 +27,14 @@
 					GridPane.columnIndex="0" GridPane.rowIndex="2" />
 				<ComboBox fx:id="paymentTypeComboBox" prefWidth="200"
 					GridPane.columnIndex="1" GridPane.rowIndex="2" />
-				<Label text="Remarks:"
+				<Label text="Rent:" prefWidth="150" 
 					GridPane.columnIndex="0" GridPane.rowIndex="3" />
-				<UppercaseTextField fx:id="remarksField" prefWidth="200"
+				<ComboBox fx:id="rentComboBox" prefWidth="250"
 					GridPane.columnIndex="1" GridPane.rowIndex="3" />
+				<Label text="Remarks:"
+					GridPane.columnIndex="0" GridPane.rowIndex="4" />
+				<UppercaseTextField fx:id="remarksField" prefWidth="200"
+					GridPane.columnIndex="1" GridPane.rowIndex="4" />
 			</GridPane>
 		
 			<HBox spacing="10" alignment="center">
