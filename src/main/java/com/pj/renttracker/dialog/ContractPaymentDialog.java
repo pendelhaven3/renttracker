@@ -41,6 +41,12 @@ public class ContractPaymentDialog extends AbstractDialog {
 	
 	@Override
 	public void updateDisplay() {
+		if (contract != null) {
+			setTitle("Add Contract Payment");
+		} else {
+			setTitle("Edit Contract Payment");
+		}
+		
 		paymentTypeComboBox.getItems().addAll(PaymentType.values());
 		
 		if (contract == null) {
@@ -139,15 +145,6 @@ public class ContractPaymentDialog extends AbstractDialog {
 
 	@FXML public void cancel() {
 		hide();
-	}
-
-	@Override
-	protected String getDialogTitle() {
-		if (contract != null) {
-			return "Add Contract Payment";
-		} else {
-			return "Edit Contract Payment";
-		}
 	}
 
 	@Override

@@ -31,13 +31,10 @@ public abstract class AbstractDialog extends Stage {
 	public void showAndWait(Map<String, Object> model) {
 		setScene(null);
 		loadSceneFromFXML(model);
-		setTitle(getDialogTitle());
 		
 		super.showAndWait();
 	}
 	
-	protected abstract String getDialogTitle();
-
 	private void loadSceneFromFXML(Map<String, Object> model) {
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setController(this);
