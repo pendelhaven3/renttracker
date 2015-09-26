@@ -1,5 +1,6 @@
 package com.pj.renttracker.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +50,24 @@ public class ContractServiceImpl implements ContractService {
 	@Override
 	public void save(ContractPayment payment) {
 		contractPaymentDao.save(payment);
+		
+		if (payment.getPaymentType().isRent()) {
+			if (isTotalPaymentsEqualToRentAmount(payment.getRent())) {
+				markRentAsPaid(payment.getRent());
+			}
+		}
+	}
+
+	private boolean isTotalPaymentsEqualToRentAmount(ContractRent rent) {
+		return getTotalRentPayment(rent).compareTo(rent.getAmount()) >= 0;
+	}
+
+	private BigDecimal getTotalRentPayment(ContractRent rent) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (ContractPayment payment : contractPaymentDao.findAllByRent(rent)) {
+			total = total.add(payment.getAmount());
+		}
+		return total;
 	}
 
 	@Transactional

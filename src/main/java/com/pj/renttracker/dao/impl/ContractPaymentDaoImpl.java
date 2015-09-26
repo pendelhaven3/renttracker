@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.pj.renttracker.dao.ContractPaymentDao;
 import com.pj.renttracker.model.Contract;
 import com.pj.renttracker.model.ContractPayment;
+import com.pj.renttracker.model.ContractRent;
 
 @Repository
 public class ContractPaymentDaoImpl implements ContractPaymentDao {
@@ -44,6 +45,15 @@ public class ContractPaymentDaoImpl implements ContractPaymentDao {
 						"select r from ContractPayment r where r.parent = ? order by r.paymentDate desc", 
 						ContractPayment.class);
 		query.setParameter(1, contract);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<ContractPayment> findAllByRent(ContractRent rent) {
+		TypedQuery<ContractPayment> query = entityManager.createQuery(
+						"select p from ContractPayment p where p.rent = :rent", 
+						ContractPayment.class);
+		query.setParameter("rent", rent);
 		return query.getResultList();
 	}
 

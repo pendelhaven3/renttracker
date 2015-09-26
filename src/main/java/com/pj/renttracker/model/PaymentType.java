@@ -15,4 +15,8 @@ public enum PaymentType {
 		return description;
 	}
 	
+	public boolean isRent() {
+		return this == RENT;
+	}
+	
 }
