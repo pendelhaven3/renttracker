@@ -39,7 +39,10 @@ public class ContractServiceImpl implements ContractService {
 
 	@Override
 	public Contract getContract(long id) {
-		return contractDao.get(id);
+		Contract contract = contractDao.get(id);
+		contract.setRents(contractRentDao.findAllByContract(contract));
+		contract.setPayments(contractPaymentDao.findAllByContract(contract));
+		return contract;
 	}
 
 	@Transactional
