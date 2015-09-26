@@ -24,6 +24,9 @@ public class Main extends Application {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(configLocations);
 		context.registerShutdownHook();
 		
+		Bootstrap bootstrap = context.getBean(Bootstrap.class);
+		bootstrap.run();
+		
 		StageController stageController = context.getBean(StageController.class);
 		stageController.setStage(stage);
 		stageController.showMainMenuScreen();

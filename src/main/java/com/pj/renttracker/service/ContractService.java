@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pj.renttracker.model.Contract;
 import com.pj.renttracker.model.ContractPayment;
+import com.pj.renttracker.model.ContractRent;
 
 public interface ContractService {
 
@@ -18,5 +19,7 @@ public interface ContractService {
 	void delete(ContractPayment payment);
 
 	List<Contract> findContractsWithUpcomingRent();
+	
+	void save(ContractRent rent);
 	
 }

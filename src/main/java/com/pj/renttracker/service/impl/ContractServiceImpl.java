@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import com.pj.renttracker.dao.ContractDao;
 import com.pj.renttracker.dao.ContractPaymentDao;
+import com.pj.renttracker.dao.ContractRentDao;
 import com.pj.renttracker.model.Contract;
 import com.pj.renttracker.model.ContractPayment;
+import com.pj.renttracker.model.ContractRent;
 import com.pj.renttracker.model.search.ContractSearchCriteria;
 import com.pj.renttracker.service.ContractService;
 
@@ -22,6 +24,7 @@ public class ContractServiceImpl implements ContractService {
 
 	@Autowired private ContractDao contractDao;
 	@Autowired private ContractPaymentDao contractPaymentDao;
+	@Autowired private ContractRentDao contractRentDao;
 	
 	@Override
 	public List<Contract> getAllContracts() {
@@ -81,6 +84,12 @@ public class ContractServiceImpl implements ContractService {
 
 	private static boolean isDateTheLastDayOfMonth(int date, Calendar calendar) {
 		return date == getLastDayOfMonth(calendar);
+	}
+
+	@Transactional
+	@Override
+	public void save(ContractRent rent) {
+		contractRentDao.save(rent);
 	}
 	
 }

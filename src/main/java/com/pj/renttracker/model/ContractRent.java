@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 @Entity
 public class ContractRent {
 
@@ -20,6 +23,14 @@ public class ContractRent {
 	
 	private Date rentDate;
 	private BigDecimal amount;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Contract getParent() {
 		return parent;
@@ -43,6 +54,27 @@ public class ContractRent {
 
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder()
+				.append(id)
+				.toHashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ContractRent other = (ContractRent) obj;
+		return new EqualsBuilder()
+				.append(id,  other.getId())
+				.isEquals();
 	}
 
 }

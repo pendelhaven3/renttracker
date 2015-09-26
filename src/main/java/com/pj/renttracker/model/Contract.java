@@ -1,6 +1,7 @@
 package com.pj.renttracker.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.PostLoad;
 import javax.persistence.Transient;
+
+import org.apache.commons.lang.time.DateUtils;
 
 @Entity
 public class Contract {
@@ -38,7 +41,7 @@ public class Contract {
 	
 	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
 	@OrderBy("rentDate DESC")
-	private List<ContractRent> rents;
+	private List<ContractRent> rents = new ArrayList<>();
 
 	@Transient
 	private Date nextRentalDate;
@@ -122,4 +125,37 @@ public class Contract {
 		this.rents = rents;
 	}
 
+	public Date getPreviousRentDate(Date referenceDate) {
+		if (isDateLessThanOneMonthAfterStartDate(referenceDate)) {
+			return null;
+		}
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(referenceDate);
+		
+		if (calendar.get(Calendar.DATE) <= rentalDate) {
+			calendar.add(Calendar.MONTH, -1);
+		}
+		calendar.set(Calendar.DATE, rentalDate);
+		
+		if (calendar.getTime().equals(startDate)) {
+			return null;
+		}
+		
+		return calendar.getTime();
+	}
+
+	private boolean isDateLessThanOneMonthAfterStartDate(Date referenceDate) {
+		return DateUtils.addMonths(startDate, 1).compareTo(referenceDate) > 0;
+	}
+
+	public boolean hasRentWithRentDate(Date previousRentDate) {
+		return rents.stream().anyMatch(rent ->
+				rent.getRentDate().equals(previousRentDate));
+	}
+
+	public boolean isRentDate(Date date) {
+		return DateUtils.toCalendar(date).get(Calendar.DATE) == rentalDate;
+	}
+	
 }
