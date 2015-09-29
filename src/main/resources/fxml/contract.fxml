@@ -55,6 +55,24 @@
 		
 			<Button text="Update Contract" onAction="#updateContract" />
 			
+			<GridPane vgap="10" alignment="center">
+				<Label text="Balance" prefWidth="100"
+					GridPane.columnIndex="0" GridPane.rowIndex="0" />
+				<Label fx:id="balanceLabel" prefWidth="300"
+					GridPane.columnIndex="1" GridPane.rowIndex="0" />
+				<Label prefWidth="50"
+					GridPane.columnIndex="2" GridPane.rowIndex="0" />
+				<Label text="Deposit" prefWidth="120"
+					GridPane.columnIndex="3" GridPane.rowIndex="0" />
+				<Label fx:id="depositLabel"
+					GridPane.columnIndex="4" GridPane.rowIndex="0" />
+					
+				<Label text="Advance" prefWidth="120"
+					GridPane.columnIndex="3" GridPane.rowIndex="1" />
+				<Label fx:id="advanceLabel"
+					GridPane.columnIndex="4" GridPane.rowIndex="1" />
+			</GridPane>
+			
 			<TabPane VBox.vgrow="always">
 				<tabs>
 					<Tab text="Rents" closable="false">

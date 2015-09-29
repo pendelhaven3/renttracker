@@ -2,6 +2,9 @@ package com.pj.renttracker.model;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -59,6 +62,25 @@ public class ContractTest {
 		contract.setRentalDate(25);
 		assertTrue(contract.isRentDate(DateUtil.toDate("10/25/2015")));
 		assertFalse(contract.isRentDate(DateUtil.toDate("10/24/2015")));
+	}
+	
+	@Test
+	public void getBalance() {
+		ContractRent rent = new ContractRent();
+		rent.setAmount(new BigDecimal("100"));
+		contract.setRents(Arrays.asList(rent));
+		
+		ContractPayment advancePayment = new ContractPayment();
+		advancePayment.setAmount(new BigDecimal("50"));
+		advancePayment.setPaymentType(PaymentType.ADVANCE);
+		
+		ContractPayment rentPayment = new ContractPayment();
+		rentPayment.setAmount(new BigDecimal("50"));
+		rentPayment.setPaymentType(PaymentType.RENT);
+		
+		contract.setPayments(Arrays.asList(advancePayment, rentPayment));
+		
+		assertEquals(new BigDecimal("50"), contract.getBalance());
 	}
 	
 }

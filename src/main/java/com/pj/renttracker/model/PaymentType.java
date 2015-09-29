@@ -18,5 +18,13 @@ public enum PaymentType {
 	public boolean isRent() {
 		return this == RENT;
 	}
+
+	public boolean isDeposit() {
+		return this == DEPOSIT;
+	}
+	
+	public boolean isAdvance() {
+		return this == ADVANCE;
+	}
 	
 }

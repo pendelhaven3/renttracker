@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -154,6 +155,42 @@ public class Contract {
 
 	public boolean isRentDate(Date date) {
 		return DateUtils.toCalendar(date).get(Calendar.DATE) == rentalDate;
+	}
+
+	public BigDecimal getBalance() {
+		return getTotalUnpaidRents().subtract(getTotalAdvance());
+	}
+
+	private BigDecimal getTotalUnpaidRents() {
+		return getUnpaidRents().stream().map(rent -> rent.getAmount())
+				.reduce(BigDecimal.ZERO, (x,y) -> x.add(y));
+	}
+
+	private List<ContractRent> getUnpaidRents() {
+		return rents.stream().filter(rent -> !rent.isPaid()).collect(Collectors.toList());
+	}
+
+	public BigDecimal getTotalAdvanceRemaining() {
+		BigDecimal unpaidRents = getTotalUnpaidRents();
+		BigDecimal totalAdvance = getTotalAdvance();
+		
+		if (unpaidRents.compareTo(totalAdvance) >= 0) {
+			return BigDecimal.ZERO;
+		} else {
+			return totalAdvance.subtract(unpaidRents);
+		}
+	}
+
+	public BigDecimal getTotalDeposit() {
+		return payments.stream().filter(payment -> payment.getPaymentType().isDeposit())
+				.map(payment -> payment.getAmount())
+				.reduce(BigDecimal.ZERO, (x,y) -> x.add(y));
+	}
+
+	public BigDecimal getTotalAdvance() {
+		return payments.stream().filter(payment -> payment.getPaymentType().isAdvance())
+				.map(payment -> payment.getAmount())
+				.reduce(BigDecimal.ZERO, (x,y) -> x.add(y));
 	}
 	
 }
