@@ -59,7 +59,7 @@ public class Unit {
 	
 	@Override
 	public String toString() {
-		return name;
+		return name + " - " + location.getName();
 	}
 
 	public Location getLocation() {

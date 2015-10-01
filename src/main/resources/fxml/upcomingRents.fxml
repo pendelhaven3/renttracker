@@ -29,7 +29,7 @@
 			</TableColumn>
 			<TableColumn text="Unit">
 				<cellValueFactory>
-					<AppPropertyValueFactory property="unit" />
+					<AppPropertyValueFactory property="unit.name" />
 				</cellValueFactory>
 			</TableColumn>
 			<TableColumn text="Location">
