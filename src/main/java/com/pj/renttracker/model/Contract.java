@@ -1,6 +1,7 @@
 package com.pj.renttracker.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -36,11 +37,11 @@ public class Contract {
 	
 	@OneToMany(mappedBy = "parent")
 	@OrderBy("paymentDate DESC")
-	private List<ContractPayment> payments;
+	private List<ContractPayment> payments = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "parent")
 	@OrderBy("rentDate DESC")
-	private List<ContractRent> rents;
+	private List<ContractRent> rents = new ArrayList<>();
 
 	@Transient
 	private Date nextRentalDate;
@@ -158,7 +159,14 @@ public class Contract {
 	}
 
 	public BigDecimal getBalance() {
-		return getTotalUnpaidRents().subtract(getTotalAdvance());
+		BigDecimal unpaidRents = getTotalUnpaidRents();
+		BigDecimal totalAdvance = getTotalAdvance();
+		
+		if (unpaidRents.compareTo(totalAdvance) > 0) {
+			return unpaidRents.subtract(totalAdvance);
+		} else {
+			return BigDecimal.ZERO;
+		}
 	}
 
 	private BigDecimal getTotalUnpaidRents() {
