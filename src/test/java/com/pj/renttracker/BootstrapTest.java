@@ -38,10 +38,12 @@ public class BootstrapTest {
 	@Test
 	public void run_createsContractRentOneMonthAfterStartDate() {
 		Contract contract = new Contract();
+		contract.setId(1L);
 		contract.setRentalDate(25);
 		contract.setStartDate(DateUtil.toDate("09/25/2015"));
 		contract.setRentalAmount(new BigDecimal("3000"));
 		
+		when(contractService.getContract(1L)).thenReturn(contract);
 		when(contractService.getAllContracts()).thenReturn(Arrays.asList(contract));
 		when(bootstrap.newDate()).thenReturn(DateUtil.toDate("10/25/2015"));
 		
@@ -61,6 +63,7 @@ public class BootstrapTest {
 	@Test
 	public void run_doesNotCreateContractRentOneMonthAfterStartDateIfAlreadyExisting() {
 		Contract contract = new Contract();
+		contract.setId(1L);
 		contract.setRentalDate(25);
 		contract.setStartDate(DateUtil.toDate("09/25/2015"));
 		contract.setRentalAmount(new BigDecimal("3000"));
@@ -69,6 +72,7 @@ public class BootstrapTest {
 		rent.setRentDate(DateUtil.toDate("10/25/2015"));
 		contract.setRents(Arrays.asList(rent));
 		
+		when(contractService.getContract(1L)).thenReturn(contract);
 		when(contractService.getAllContracts()).thenReturn(Arrays.asList(contract));
 		when(bootstrap.newDate()).thenReturn(DateUtil.toDate("10/25/2015"));
 		
@@ -80,10 +84,12 @@ public class BootstrapTest {
 	@Test
 	public void run_doesNotCreateContractRentLessThanOneMonthAfterStartDate() {
 		Contract contract = new Contract();
+		contract.setId(1L);
 		contract.setRentalDate(25);
 		contract.setStartDate(DateUtil.toDate("09/25/2015"));
 		contract.setRentalAmount(new BigDecimal("3000"));
 		
+		when(contractService.getContract(1L)).thenReturn(contract);
 		when(contractService.getAllContracts()).thenReturn(Arrays.asList(contract));
 		when(bootstrap.newDate()).thenReturn(DateUtil.toDate("10/24/2015"));
 		
@@ -95,10 +101,12 @@ public class BootstrapTest {
 	@Test
 	public void run_createsContractRentMoreThanOneMonthAfterStartDate() {
 		Contract contract = new Contract();
+		contract.setId(1L);
 		contract.setRentalDate(25);
 		contract.setStartDate(DateUtil.toDate("09/25/2015"));
 		contract.setRentalAmount(new BigDecimal("3000"));
 		
+		when(contractService.getContract(1L)).thenReturn(contract);
 		when(contractService.getAllContracts()).thenReturn(Arrays.asList(contract));
 		when(bootstrap.newDate()).thenReturn(DateUtil.toDate("10/30/2015"));
 		
@@ -118,10 +126,12 @@ public class BootstrapTest {
 	@Test
 	public void run_createsTwoContractRentsTwoMonthsAfterStartDate() {
 		Contract contract = new Contract();
+		contract.setId(1L);
 		contract.setRentalDate(25);
 		contract.setStartDate(DateUtil.toDate("09/25/2015"));
 		contract.setRentalAmount(new BigDecimal("3000"));
 		
+		when(contractService.getContract(1L)).thenReturn(contract);
 		when(contractService.getAllContracts()).thenReturn(Arrays.asList(contract));
 		when(bootstrap.newDate()).thenReturn(DateUtil.toDate("11/30/2015"));
 		
@@ -138,6 +148,7 @@ public class BootstrapTest {
 	@Test
 	public void run_createsContractRentTwoMonthsAfterStartDateAndFirstMonthRentAlreadyExisiting() {
 		Contract contract = new Contract();
+		contract.setId(1L);
 		contract.setRentalDate(25);
 		contract.setStartDate(DateUtil.toDate("09/25/2015"));
 		contract.setRentalAmount(new BigDecimal("3000"));
@@ -146,6 +157,7 @@ public class BootstrapTest {
 		rent.setRentDate(DateUtil.toDate("10/25/2015"));
 		contract.setRents(Arrays.asList(rent));
 		
+		when(contractService.getContract(1L)).thenReturn(contract);
 		when(contractService.getAllContracts()).thenReturn(Arrays.asList(contract));
 		when(bootstrap.newDate()).thenReturn(DateUtil.toDate("11/30/2015"));
 		
@@ -162,10 +174,12 @@ public class BootstrapTest {
 	@Test
 	public void run_createsContractRentsFiveMonthsAfterStartDate() {
 		Contract contract = new Contract();
+		contract.setId(1L);
 		contract.setRentalDate(25);
 		contract.setStartDate(DateUtil.toDate("09/25/2015"));
 		contract.setRentalAmount(new BigDecimal("3000"));
 		
+		when(contractService.getContract(1L)).thenReturn(contract);
 		when(contractService.getAllContracts()).thenReturn(Arrays.asList(contract));
 		when(bootstrap.newDate()).thenReturn(DateUtil.toDate("03/01/2016"));
 		
