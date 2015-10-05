@@ -158,35 +158,13 @@ public class Contract {
 		return DateUtils.toCalendar(date).get(Calendar.DATE) == rentalDate;
 	}
 
-	public BigDecimal getBalance() {
-		BigDecimal unpaidRents = getTotalUnpaidRents();
-		BigDecimal totalAdvance = getTotalAdvance();
-		
-		if (unpaidRents.compareTo(totalAdvance) > 0) {
-			return unpaidRents.subtract(totalAdvance);
-		} else {
-			return BigDecimal.ZERO;
-		}
-	}
-
-	private BigDecimal getTotalUnpaidRents() {
+	public BigDecimal getTotalUnpaidRents() {
 		return getUnpaidRents().stream().map(rent -> rent.getAmount())
 				.reduce(BigDecimal.ZERO, (x,y) -> x.add(y));
 	}
 
 	private List<ContractRent> getUnpaidRents() {
 		return rents.stream().filter(rent -> !rent.isPaid()).collect(Collectors.toList());
-	}
-
-	public BigDecimal getTotalAdvanceRemaining() {
-		BigDecimal unpaidRents = getTotalUnpaidRents();
-		BigDecimal totalAdvance = getTotalAdvance();
-		
-		if (unpaidRents.compareTo(totalAdvance) >= 0) {
-			return BigDecimal.ZERO;
-		} else {
-			return totalAdvance.subtract(unpaidRents);
-		}
 	}
 
 	public BigDecimal getTotalDeposit() {

@@ -58,8 +58,8 @@ public class ContractController extends AbstractController {
 		amountLabel.setText(FormatterUtil.formatAmount(contract.getRentalAmount()));
 		startDateLabel.setText(FormatterUtil.formatDate(contract.getStartDate()));
 		rentalDateLabel.setText(String.valueOf(contract.getRentalDate()));
-		balanceLabel.setText(FormatterUtil.formatAmount(contract.getBalance()));
-		advanceLabel.setText(FormatterUtil.formatAmount(contract.getTotalAdvanceRemaining()));
+		balanceLabel.setText(FormatterUtil.formatAmount(contract.getTotalUnpaidRents()));
+		advanceLabel.setText(FormatterUtil.formatAmount(contract.getTotalAdvance()));
 		depositLabel.setText(FormatterUtil.formatAmount(contract.getTotalDeposit()));
 		deleteButton.setDisable(false);
 		
